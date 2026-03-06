@@ -123,11 +123,11 @@ def hunt():
     success = random.random()
 
     if weapon == "bow":
-        chance = 0.8
+        chance = 0.9
     elif weapon == "sword":
-        chance = 0.6
+        chance = 0.7
     else:
-        chance = 0.4
+        chance = 0.5
 
     if success < chance:
 
@@ -203,6 +203,8 @@ while day <= 5:
 
         actions_left -= 1
 
-
+    if (energy < 0):
+        print("WASTED")
+        break
     print("Night falls...")
     day += 1
