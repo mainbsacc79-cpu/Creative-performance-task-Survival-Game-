@@ -11,12 +11,13 @@ inventory = {
     "berries":0,
     "arrows":0,
     "meat":0,
-    "cooked_meat":0
+    "cooked_meat":0,
+    "hide":0
     }
     
 tools = {
-    "sword":false,
-    "bow":false
+    "sword":False,
+    "bow":False
 }
 
 def show_stats():
@@ -40,10 +41,10 @@ def show_actions():
     print("3 - Gather berries")
     print("4 - Craft")
     print("5 - Hunt")
-    print("6 - Cook meat")
-    print("7 - Build campfire")
-    print("8 - Eat")
-    print("9 - Stats/Inventory")
+    print("6 - Eat")
+    #print("7 - Build campfire")
+    #print("8 - Cook meat")
+    #print("9 - Stats/Inventory")
     
 def gather_wood():
     global energy
@@ -77,25 +78,25 @@ def gather_berries():
 def craft():
 
     print("Craft:")
-    print("1 - Arrows (1 feathers, 1 wood, 1 rock)")
-    print("2 - Sword (1 wood, 2 rocks)")
+    print("1 - Arrows (1 feathers, 1 wood, 1 stone)")
+    print("2 - Sword (1 wood, 2 stone)")
     print("3 - Bow (1 wood, 1 hide)")
 
     choice = input("Choose: ")
 
     if choice == "1":
-        if inventory["feather"] >= 1 and inventory["wood"] >= 1 and inventory["rocks"] >= 1:
+        if inventory["feather"] >= 1 and inventory["wood"] >= 1 and inventory["stone"] >= 1:
             inventory["arrows"] += 5
             inventory["feather"] -= 1
             inventory["wood"] -= 1
-            inventory["rocks"] -= 1
+            inventory["stone"] -= 1
             print("You crafted arrows!")
 
     elif choice == "2":
-        if inventory["wood"] >= 1 and inventory["rocks"] >= 2:
+        if inventory["wood"] >= 1 and inventory["stone"] >= 2:
             tools["sword"] = True
             inventory["wood"] -= 1
-            inventory["rocks"] -= 2
+            inventory["stone"] -= 2
             print("You crafted a sword!")
 
     elif choice == "3":
@@ -175,32 +176,33 @@ def eat():
         print("Restored:", 30*amount, "health and", 50*amount, "energy")
         inventory["cooked_meat"] -= amount
 
-def action(choice):
-    
-
-    global day
-    global wood
-    global stone 
-    global berries
-    global arrows
-    global meat
-    
-    
-    
-    
-    print("---------------------")
-    print("Day: ", day)
-    print("Health: ", health)
-    print("Energy: ", energy)
-    print("choose action: Build campfire or bed;\n Cook meat \n Gather rock, stone, or berries; \n Craft bow, sword or arrows; \n Hunt")
-
-    if choice = 1: 
-        
-    elif choice = 2:
-    
-    
-    
-    
-    
     
 print("Welcome to island survival!")
+
+while day <= 5:
+
+    show_stats()  
+    
+    actions_left = 5  
+    while actions_left > 0:
+        show_actions()
+        choice = input("Enter action: ")
+
+        if choice == "1":
+            gather_wood()
+        elif choice == "2":
+            gather_stone()
+        elif choice == "3":
+            gather_berries()
+        elif choice == "4":
+            craft()
+        elif choice == "5":
+            hunt()
+        elif choice == "6":
+            eat()
+
+        actions_left -= 1
+
+
+    print("Night falls...")
+    day += 1
